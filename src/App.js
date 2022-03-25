@@ -1,18 +1,17 @@
 import './App.css';
 import data from './data/sample.js'
+import {ImageAlbum, DescAlbum, NameAlbum, ButtonLink} from './components/album/index.js'
 
 function App() {
   return (
     <div className="App">
-      <div>
-        <img src={data.album.images[0].url} width="600" height="600" />
-      </div>
-      <div>
-        <h1>{data.name}</h1>
-        <h2>{data.album.name}</h2>
-        <h5>{data.artists[0].name}</h5>
-        <a href={data.album.artists[0].external_urls.spotify} target="_blank"><button>select</button></a>
-      </div>
+      <ImageAlbum src={data.album.images[0].url}>
+        <DescAlbum name={data.name} />
+      </ImageAlbum>
+
+      <NameAlbum name={data.album.name} artist={data.artists[0].name}>
+        <ButtonLink url={data.album.artists[0].external_urls.spotify}/>
+      </NameAlbum>
     </div>
   );
 }
