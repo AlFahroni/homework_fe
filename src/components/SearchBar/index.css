@@ -1,0 +1,11 @@
+.form-search {
+  margin-top: 10%;
+  margin-left: 3%;
+  display: flex;
+  gap: 20px;
+  width: 80%;
+}
+
+.form-search .form-search__input {
+  flex: 1 1 100%;
+}

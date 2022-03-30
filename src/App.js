@@ -1,7 +1,7 @@
 import './App.css';
 // import data from './data/sample.js'
 // import {ImageAlbum, DescAlbum, NameAlbum, ButtonLink} from './components/album/index.js'
-import TracksLoop from './components/loop';
+import Home from './pages/Home'
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <ButtonLink url={data.album.artists[0].external_urls.spotify}/>
       </NameAlbum> */}
 
-      <TracksLoop/>
+      <Home />
     </div>
   );
 }
