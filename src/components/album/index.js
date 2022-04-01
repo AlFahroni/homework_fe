@@ -17,19 +17,30 @@
 
 // const ButtonLink = (urlSpotify) => <a href={url} ><button>select</button></a>;
 
-import React from 'react'
+import React, {useState} from 'react';
+import './index.css';
 
-export default function CardAlbum({url_image, title, artist, url_spotify}) {
+export default function Track ({url_image, title, artist, toggleSelect}) {
+  const [isSelected, setIsSelected] = useState(false);
+
+  const handleToggleSelect = () => {
+    setIsSelected(!isSelected);
+    toggleSelect();
+  }
+
   return (
     <div className="card-album">
         <div className="copy-music">
-          <img src={url_image} alt="" />
+          <img src={url_image} alt="{title}" />
           <p className='song-title'>{title}</p>
           <p className='song-artist'>{artist}</p>
+        {/* <a className='btn' href={url_spotify}> */}
+          <button onClick={handleToggleSelect}>{isSelected ? 'Deselect' : 'Select'}</button>
+          {/* </a> */}
         </div>
-        <a className='btn' href={url_spotify}>Clik on me</a>
     </div>
   )
 }
+
 
 // export {ImageAlbum, DescAlbum, NameAlbum, ButtonLink};

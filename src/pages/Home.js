@@ -1,78 +1,147 @@
-import React, { Component } from 'react'
-import CardAlbum from '../components/album/index.js'
+import React, { useEffect, useState } from 'react'
+import Track from '../components/album/index.js'
 import SearchBar from '../components/SearchBar';
 import config from '../lib/config';
 
-export default class Home extends Component {
-  state = {
-    accessToken: '',
-    isAuthorize: false,
-    tracks: [],
-  }
+export default function Home() {
+  const [accessToken, setAccessToken] = useState('');
+  const [isAuthorize, setIsAuthorize] = useState(false);
+  const [tracks, setTracks] = useState([]);
+  const [selectedTracksUri, setSelectedTracksUri] = useState([]);
+  const [isInSearch, setIsInSearch] = useState(false);
 
-  getHashParams() {
-    const hashParams = {};
-    const r = /([^&;=]+)=?([^&;]*)/g;
-    const q = window.location.hash.substring(1);
-    let e = r.exec(q);
+  useEffect(() => {
+    const access_token = new URLSearchParams(window.location.hash).get('#access_token');
 
-    while (e) {
-      hashParams[e[1]] = decodeURIComponent(e[2]);
-      e = r.exec(q);
-    }
-    return hashParams;
-  }
+    setAccessToken(access_token);
+    setIsAuthorize(access_token !== null);
+  },)
+  
+  useEffect(() => {
+      if (!isInSearch) {
+        const selectedTracks = filterSelectedTracks();
 
-  componentDidMount() {
-    const params = this.getHashParams();
-    const { access_token: accessToken } = params;
+        setTracks(selectedTracks);
+      }
+    }, [selectedTracksUri]);
 
-    this.setState({ accessToken, isAuthorize: accessToken !== undefined })
-  }
-
-  getSpotifyLinkAuthorize() {
+  const getSpotifyLinkAuthorize = () => {
     const state = Date.now().toString();
     const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 
     return `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=http://localhost:3000&state=${state}&scope=${config.SPOTIFY_SCOPE}`;
   }
 
-  onSuccessSearch(tracks) {
-    this.setState({ tracks });
+  const filterSelectedTracks = () => {
+    return tracks.filter((track) => selectedTracksUri.includes(track.uri));
+  }
+  
+  const onSuccessSearch = (searchTracks) => {
+    setIsInSearch(true);
+    const selectedTracks = filterSelectedTracks();
+    const searchDistincTracks = searchTracks.filter(track => !selectedTracksUri.includes(track.uri));
+
+    setTracks([...selectedTracks, ...searchDistincTracks]);
   }
 
-  render() {
+  const clearSearch = () => {
+    const selectedTracks = filterSelectedTracks();
+    
+    setTracks(selectedTracks);
+    setIsInSearch(false);
+  }
+
+  const toggleSelect = (track) => {
+    const uri = track.uri;
+
+    if (selectedTracksUri.includes(uri)) {
+      setSelectedTracksUri(selectedTracksUri.filter(item => item !== uri));
+    } else {
+      setSelectedTracksUri([...selectedTracksUri, uri]);
+    }
+  }
+
     return (
       <>
-        {!this.state.isAuthorize && (
+        {!isAuthorize && (
           <main className="center">
             <p>Login for next step...</p>
-            <a href={this.getSpotifyLinkAuthorize()} ><button>Authorize</button></a>
+            <a href={getSpotifyLinkAuthorize()}><button>Authorize</button></a>
           </main>
         )}
 
-        {this.state.isAuthorize && (
+        {isAuthorize && (
           <main className="container" id="home">
             <SearchBar
-              accessToken={this.state.accessToken}
-              onSuccess={(tracks) => this.onSuccessSearch(tracks)}
+              accessToken={accessToken}
+              onSuccess={(tracks) => onSuccessSearch(tracks)}
+              onClearSearch={clearSearch}
             />
 
             <div className="content">
-              {this.state.tracks.length === 0 && (
+              {tracks.length === 0 && (
                 <p>No tracks</p>
               )}
 
               <div className="cards">
-                {this.state.tracks.map((song) => (
-                  <CardAlbum
-                    key={song.id}
-                    url_image={song.album.images[0].url}
-                    title={song.name}
-                    artist={song.artists[0].name}
-                    url_spotify={song.album.artists[0].external_urls.spotify}
+                {tracks.map((track) => (
+                  <Track
+                    key={track.id}
+                    url_image={track.album.images[0].url}
+                    title={track.name}
+                    artist={track.artists[0].name}
+                    // url_spotify={song.album.artists[0].external_urls.spotify}
+                    toggleSelect={() => toggleSelect(track)}
                   />
-                  // return(
+
+                ))}
+              </div>
+            </div>
+          </main>
+        )}
+      </>
+    );
+}
+
+// export default class Home extends Component {
+  // state = {
+  //   accessToken: '',
+  //   isAuthorize: false,
+  //   tracks: [],
+  // }
+
+      // const params = getHashParams();
+    // const {access_token} = params;
+
+      // getHashParams() {
+  //   const hashParams = {};
+  //   const r = /([^&;=]+)=?([^&;]*)/g;
+  //   const q = window.location.hash.substring(1);
+  //   let e = r.exec(q);
+
+  //   while (e) {
+  //     hashParams[e[1]] = decodeURIComponent(e[2]);
+  //     e = r.exec(q);
+  //   }
+  //   return hashParams;
+  // }
+
+  
+  // componentDidMount() {
+  //   const params = this.getHashParams();
+  //   const { access_token: accessToken } = params;
+
+  //   this.setState({ accessToken, isAuthorize: accessToken !== null })
+  // }
+
+  // getSpotifyLinkAuthorize() {
+  //   const state = Date.now().toString();
+  //   const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+
+  //   return `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=http://localhost:3000&state=${state}&scope=${config.SPOTIFY_SCOPE}`;
+  // }
+
+                    // return(
                   //   <div>
                   //  <ImageAlbum src={song.album.images[0].url}>
                   //     <DescAlbum name={song.name} />
@@ -83,12 +152,3 @@ export default class Home extends Component {
                   //   </NameAlbum> 
                   //   </div>
                   // )
-                ))}
-              </div>
-            </div>
-          </main>
-        )}
-      </>
-    );
-  }
-}
