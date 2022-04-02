@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Track from '../components/album/index.js'
+import Form from '../components/form/index.js';
 import SearchBar from '../components/SearchBar';
 import config from '../lib/config';
+import FormPlaylist from '../components/form/index.js';
 
 export default function Home() {
   const [accessToken, setAccessToken] = useState('');
@@ -77,6 +79,8 @@ export default function Home() {
               onSuccess={(tracks) => onSuccessSearch(tracks)}
               onClearSearch={clearSearch}
             />
+
+            <FormPlaylist />
 
             <div className="content">
               {tracks.length === 0 && (
