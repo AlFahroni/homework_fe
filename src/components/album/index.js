@@ -20,8 +20,8 @@
 import React, {useState} from 'react';
 import './index.css';
 
-export default function Track ({url_image, title, artist, toggleSelect}) {
-  const [isSelected, setIsSelected] = useState(false);
+export default function Track ({url_image, title, artist, select, toggleSelect}) {
+  const [isSelected, setIsSelected] = useState(select);
 
   const handleToggleSelect = () => {
     setIsSelected(!isSelected);
