@@ -4,9 +4,11 @@ import './index.css';
 import Input from '../Input';
 import { searchTrack } from '../../lib/fetchApi';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 
-export default function SearchBar({ accessToken, onSuccess, onClearSearch }) {
+export default function SearchBar({ onSuccess, onClearSearch}) {
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const [text, setText] = useState('');
   const [isClear, setIsClear] = useState(true);
 
@@ -58,11 +60,11 @@ return (
         value={text}
         onChange={handleInput}
       />
-      <button type="submit">Search</button>
+      <button className='button-search' type="submit">Search</button>
     </form>
 
     {!isClear && (
-      <button onClick={handleClear}>Clear search</button>
+      <button className='button-search' onClick={handleClear}>Clear search</button>
     )}
   </div>
 )
