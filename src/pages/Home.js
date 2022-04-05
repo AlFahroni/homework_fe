@@ -5,15 +5,22 @@ import config from '../lib/config';
 import PlaylistForm from '../components/PlaylistForm/index.js';
 import { getUserProfile } from '../lib/fetchApi';
 import { toast } from 'react-toastify';
+import { useDocumentTitle } from '../lib/customHooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../slice/authSlice';
 
 export default function Home() {
-  const [accessToken, setAccessToken] = useState('');
-  const [isAuthorize, setIsAuthorize] = useState(false);
+  // const [accessToken, setAccessToken] = useState('');
+  // const [isAuthorize, setIsAuthorize] = useState(false);
   const [tracks, setTracks] = useState([]);
   const [selectedTracksUri, setSelectedTracksUri] = useState([]);
   const [selectedTracks, setSelectedTracks] = useState([]);
   const [isInSearch, setIsInSearch] = useState(false);
-  const [user, setUser] = useState({});
+  const isAuthorize = useSelector((state) => state.auth.isAuthorize);
+  const dispatch = useDispatch();
+
+  useDocumentTitle('Home - Spotipy');
+  // const [user, setUser] = useState({});
 
   useEffect(() => {
     // const access_token = new URLSearchParams(window.location.hash).get('#access_token');
@@ -22,15 +29,19 @@ export default function Home() {
     // setAccessToken(access_token);
     // setIsAuthorize(access_token !== null);
     if (accessTokenParams !== null) {
-      setAccessToken(accessTokenParams);
-      // setIsAuthorize(accessTokenParams !== null);
-      setIsAuthorize(true);
+      // setAccessToken(accessTokenParams);
+      // // setIsAuthorize(accessTokenParams !== null);
+      // setIsAuthorize(true);
 
       const setUserProfile = async () => {
         try {
-          const response = await getUserProfile(accessTokenParams);
+          const responseUser = await getUserProfile(accessTokenParams);
 
-          setUser(response);
+          // setUser(response);
+          dispatch(login({
+            accessToken: accessTokenParams,
+            user: responseUser
+          }));
         } catch (e) {
           toast.error(e);
         }
@@ -92,25 +103,26 @@ export default function Home() {
 
     return (
       <>
-        {/* {!isAuthorize && (
+        {!isAuthorize && (
           <main className="center">
             <p>Login for next step...</p>
             <a href={getSpotifyLinkAuthorize()}><button>Authorize</button></a>
           </main>
-        )} */}
+        )}
 
-        <PlaylistForm
+        {/* <PlaylistForm
             accessToken={accessToken}
             userId={user.id}
             uriTracks={selectedTracksUri}
-          />
+          /> */}
 
-          <hr />
+        <PlaylistForm uriTracks={selectedTracksUri} />
+        <hr />
 
         {isAuthorize && (
           <main className="container" id="home">
             <SearchBar
-              accessToken={accessToken}
+              // accessToken={accessToken}
               // onSuccess={(tracks) => onSuccessSearch(tracks)}
               onSuccess={onSuccessSearch}
               onClearSearch={clearSearch}

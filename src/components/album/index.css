@@ -1,18 +1,56 @@
 .card-album{
-    padding: 0;
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(8,1fr);
-  margin: 5px 15px;
-  gap:20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
+.card-wrapper{
+  margin: 10px;
+}
+
+
 .copy-music{
-    width: 100%;
-    padding: 30px;
-  height: auto;
-  margin: 10px 0;
-  border-radius: 15px;
   position: relative;
-  box-shadow: 10px 10px 10px rgba(0,0,0,.1);
+    width: 100%;
+    max-width: 390px;
+    min-height: 400px;
+    background-color: #6ed3e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.card-image{
+  border-radius: 10px;
+  max-width: 100%;
+  height: 250px;
+  margin-bottom: 20px;
+}
+
+.song-title{
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.button-search{
+  display: inline-block;
+    padding: 15px 30px;
+    background-color: #0b515a;
+    border-radius: 25px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: 0.5s;
+    color: white;
+    text-decoration: none;
+}
+
+.button-search:hover{
+  background-color: #008a9c;
 }
