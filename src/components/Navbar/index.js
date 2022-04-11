@@ -8,7 +8,6 @@ export default function Navbar() {
     return (
       <nav className="navbar">
         <div className="container navbar__nav">
-          {/* <Logo /> */}
   
           <div className="navbar__menu">
             <button onClick={() => dispatch(logout())}>Logout</button>

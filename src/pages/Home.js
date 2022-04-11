@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../slice/authSlice';
 
 export default function Home() {
-  // const [accessToken, setAccessToken] = useState('');
-  // const [isAuthorize, setIsAuthorize] = useState(false);
   const [tracks, setTracks] = useState([]);
   const [selectedTracksUri, setSelectedTracksUri] = useState([]);
   const [selectedTracks, setSelectedTracks] = useState([]);
@@ -20,24 +18,15 @@ export default function Home() {
   const dispatch = useDispatch();
 
   useDocumentTitle('Home - Spotipy');
-  // const [user, setUser] = useState({});
 
   useEffect(() => {
-    // const access_token = new URLSearchParams(window.location.hash).get('#access_token');
     const accessTokenParams = new URLSearchParams(window.location.hash).get('#access_token');
 
-    // setAccessToken(access_token);
-    // setIsAuthorize(access_token !== null);
     if (accessTokenParams !== null) {
-      // setAccessToken(accessTokenParams);
-      // // setIsAuthorize(accessTokenParams !== null);
-      // setIsAuthorize(true);
-
       const setUserProfile = async () => {
         try {
           const responseUser = await getUserProfile(accessTokenParams);
 
-          // setUser(response);
           dispatch(login({
             accessToken: accessTokenParams,
             user: responseUser
@@ -53,11 +42,8 @@ export default function Home() {
   
   useEffect(() => {
       if (!isInSearch) {
-        // const selectedTracks = filterSelectedTracks();
-
         setTracks(selectedTracks);
       }
-    // }, [selectedTracksUri]);
   }, [selectedTracksUri, selectedTracks, isInSearch]);
 
   const getSpotifyLinkAuthorize = () => {
@@ -66,24 +52,15 @@ export default function Home() {
 
     return `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=http://localhost:3000&state=${state}&scope=${config.SPOTIFY_SCOPE}`;
   }
-
-  // const filterSelectedTracks = () => {
-  //   return tracks.filter((track) => selectedTracksUri.includes(track.uri));
-  // }
   
   const onSuccessSearch = (searchTracks) => {
     setIsInSearch(true);
-    // const selectedTracks = filterSelectedTracks();
-    // const searchDistincTracks = searchTracks.filter(track => !selectedTracksUri.includes(track.uri));
-
-    // setTracks([...selectedTracks, ...searchDistincTracks]);
     const selectedSearchTracks = searchTracks.filter((track) => selectedTracksUri.includes(track.uri));
 
     setTracks([...new Set([...selectedSearchTracks, ...searchTracks])])
   }
 
   const clearSearch = () => {
-    // const selectedTracks = filterSelectedTracks();
     
     setTracks(selectedTracks);
     setIsInSearch(false);
@@ -110,20 +87,12 @@ export default function Home() {
           </main>
         )}
 
-        {/* <PlaylistForm
-            accessToken={accessToken}
-            userId={user.id}
-            uriTracks={selectedTracksUri}
-          /> */}
-
         <PlaylistForm uriTracks={selectedTracksUri} />
         <hr />
 
         {isAuthorize && (
           <main className="container" id="home">
             <SearchBar
-              // accessToken={accessToken}
-              // onSuccess={(tracks) => onSuccessSearch(tracks)}
               onSuccess={onSuccessSearch}
               onClearSearch={clearSearch}
             />
@@ -140,7 +109,6 @@ export default function Home() {
                     url_image={track.album.images[0].url}
                     title={track.name}
                     artist={track.artists[0].name}
-                    // url_spotify={song.album.artists[0].external_urls.spotify}
                     select={selectedTracksUri.includes(track.uri)}
                     toggleSelect={() => toggleSelect(track)}
                   />
@@ -153,53 +121,3 @@ export default function Home() {
       </>
     );
 }
-
-// export default class Home extends Component {
-  // state = {
-  //   accessToken: '',
-  //   isAuthorize: false,
-  //   tracks: [],
-  // }
-
-      // const params = getHashParams();
-    // const {access_token} = params;
-
-      // getHashParams() {
-  //   const hashParams = {};
-  //   const r = /([^&;=]+)=?([^&;]*)/g;
-  //   const q = window.location.hash.substring(1);
-  //   let e = r.exec(q);
-
-  //   while (e) {
-  //     hashParams[e[1]] = decodeURIComponent(e[2]);
-  //     e = r.exec(q);
-  //   }
-  //   return hashParams;
-  // }
-
-  
-  // componentDidMount() {
-  //   const params = this.getHashParams();
-  //   const { access_token: accessToken } = params;
-
-  //   this.setState({ accessToken, isAuthorize: accessToken !== null })
-  // }
-
-  // getSpotifyLinkAuthorize() {
-  //   const state = Date.now().toString();
-  //   const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-
-  //   return `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=http://localhost:3000&state=${state}&scope=${config.SPOTIFY_SCOPE}`;
-  // }
-
-                    // return(
-                  //   <div>
-                  //  <ImageAlbum src={song.album.images[0].url}>
-                  //     <DescAlbum name={song.name} />
-                  //   </ImageAlbum>
-
-                  //   <NameAlbum name={song.album.name} artist={song.artists[0].name}>
-                  //     <ButtonLink url={song.album.artists[0].external_urls.spotify}/>
-                  //   </NameAlbum> 
-                  //   </div>
-                  // )
