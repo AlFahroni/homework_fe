@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import config from '../../lib/config';
 import './index.css';
 import Input from '../Input';
 import { searchTrack } from '../../lib/fetchApi';
@@ -22,16 +21,7 @@ const handleInput = (e) => {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-// const requestOptions = {
-//   headers: {
-//     'Authorization': 'Bearer ' + accessToken,
-//     'Content-Type': 'application/json',
-//   },
-// };
-
 try {
-  // const response = await fetch(`${config.SPOTIFY_BASE_URL}/search?type=track&q=${text}`, requestOptions)
-  //   .then((data) => data.json());
   const response = await searchTrack(text, accessToken);
 
   const tracks = response.tracks.items;
@@ -56,7 +46,6 @@ const handleClear = () => {
 return (
   <div>
     <form className="form-search" onSubmit={handleSubmit}>
-      {/* <input */}
       <Input
         type="text"
         placeholder="Search..."
@@ -74,47 +63,3 @@ return (
   </div>
 )
 }
-
-
-
-
-
-   
- 
-
-
-
-
-
-  // import PropTypes from 'prop-types';
-// import React, { useEffect, useState } from 'react';
-
-// export default class SearchBar extends Component {
-    // state = {
-  //   text: '',
-  // }
-
-  // async onSubmit(e) {
-  //   e.preventDefault();
-
-  //   const { text } = this.state;
-
-  //   var requestOptions = {
-  //     headers: {
-  //       'Authorization': 'Bearer ' + this.props.accessToken,
-  //       'Content-Type': 'application/json',
-  //     },
-  //   };
-
-  //   try {
-  //     const response = await fetch(`${config.SPOTIFY_BASE_URL}/search?type=track&q=${text}`, requestOptions)
-  //       .then((data) => data.json());
-
-  //     const tracks = response.tracks.items;
-  //     this.props.onSuccess(tracks);
-  //   } catch (e) {
-  //     alert(e);
-  //   }
-
-  //   e.target.blur();
-  // }

@@ -52,7 +52,6 @@ export default function Auth() {
   return (
     <main className="center">
       <p>Click the button for login</p>
-      {/* <button href={getSpotifyLinkAuthorize()} external>Authorize</button> */}
       <a href={getSpotifyLinkAuthorize()} external><button>Authorize</button></a>
     </main>
   )

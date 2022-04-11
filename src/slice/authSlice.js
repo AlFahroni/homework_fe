@@ -4,14 +4,12 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState: {
     accessToken: '',
-    // isAuthorize: false,
     isAuthorized: false,
     user: {},
   },
   reducers: {
     login: (state, action) => {
       state.accessToken = action.payload.accessToken;
-      // state.isAuthorize = true;
       state.isAuthorized = true;
       state.user = action.payload.user;
       localStorage.setItem('accessToken', action.payload.accessToken);
@@ -29,7 +27,6 @@ export const authSlice = createSlice({
   }
 });
 
-// export const { login } = authSlice.actions;
 export const { login, logout } = authSlice.actions;
 
 export default authSlice.reducer;

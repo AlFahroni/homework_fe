@@ -6,7 +6,6 @@ import InputGroup from '../InputGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../slice/authSlice';
 
-// export default function PlaylistForm({ accessToken, userId, uriTracks }) {
 export default function CreatePlaylistForm({ uriTracks }) {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const userId = useSelector((state) => state.auth.user.id);
@@ -55,19 +54,6 @@ export default function CreatePlaylistForm({ uriTracks }) {
     e.preventDefault();
 
     if (validateForm()) {
-    //   try {
-    //     const responseCreatePlaylist = await createPlaylist(accessToken, userId, {
-    //       name: form.title,
-    //       description: form.description,
-    //     });
-
-    //     await addTracksToPlaylist(accessToken, responseCreatePlaylist.id, uriTracks);
-
-    //     toast.success('Playlist created successfully');
-
-    //     setForm({ title: '', description: '' });
-    //   } catch (error) {
-    //     toast.error(error);
     if (uriTracks.length > 0) {
         try {
           const responseCreatePlaylist = await createPlaylist(accessToken, userId, {
@@ -134,32 +120,3 @@ export default function CreatePlaylistForm({ uriTracks }) {
     </div>
   )
 };
-// import React from "react";
-
-// const FormPlaylist = ({onSubmit}) => {
-//     return(
-//         <form action="" onSubmit={onSubmit}>
-//             <h1>Create Playlist</h1>
-//             <label htmlFor="name">Title</label>
-//             <input 
-//                 className="search-input" 
-//                 type="text" 
-//                 name="title" 
-//                 id="name"
-//                 placeholder="title"
-//                 minLength={10}
-//             />
-//             <label htmlFor="description">Description</label>
-//             <textarea
-//                 className="desc-bar"
-//                 type="text"
-//                 name="description"
-//                 id="desc"
-//                 placeholder="description"
-//             />
-//             <button type='submit'>Create a Playlist</button>
-//         </form>
-//     )
-// }
-
-// export default FormPlaylist;

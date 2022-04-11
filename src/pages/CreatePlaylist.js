@@ -74,19 +74,6 @@ export default function Home() {
             <p>{message}</p>
           )}
 
-          {/* <div className="tracks">
-            {tracks.map((track) => (
-              <Track
-                key={track.id}
-                imageUrl={track.album.images[0].url}
-                title={track.name}
-                artist={track.artists[0].name}
-                select={selectedTracksUri.includes(track.uri)}
-                toggleSelect={() => toggleSelect(track)}
-              />
-            ))}
-          </div> */}
-
           <div className="cards">
                 {tracks.map((track) => (
                   <Track
@@ -94,7 +81,6 @@ export default function Home() {
                     url_image={track.album.images[0].url}
                     title={track.name}
                     artist={track.artists[0].name}
-                    // url_spotify={song.album.artists[0].external_urls.spotify}
                     select={selectedTracksUri.includes(track.uri)}
                     toggleSelect={() => toggleSelect(track)}
                   />
