@@ -5,6 +5,7 @@ import Input from '../Input';
 import InputGroup from '../InputGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../slice/authSlice';
+import './index.css';
 
 export default function CreatePlaylistForm({ uriTracks }) {
   const accessToken = useSelector((state) => state.auth.accessToken);
