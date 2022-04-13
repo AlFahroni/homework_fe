@@ -15,9 +15,11 @@ export default function Track ({url_image, title, artist, select, toggleSelect})
         <div className="copy-music">
           <div className='card-content'>
           <img className="card-image" src={url_image} alt="{title}" />
-          <p className='song-title'>{title}</p>
-          <p className='song-artist'>{artist}</p>
-          <button className='button-search' onClick={handleToggleSelect}>{isSelected ? 'Deselect' : 'Select'}</button>
+          <div className='card-info'>
+            <p className='song-title'>{title}</p>
+            <p className='song-artist'>{artist}</p>
+            <button className='button-search' onClick={handleToggleSelect}>{isSelected ? 'Deselect' : 'Select'}</button>
+          </div>
           </div>
         </div>
       </div>

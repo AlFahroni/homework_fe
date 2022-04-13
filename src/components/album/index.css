@@ -1,3 +1,9 @@
+.card {
+  overflow: hidden;
+  display: flex;
+  width: 100%;
+}
+
 .card-album{
   display: flex;
   justify-content: center;
@@ -15,7 +21,7 @@
     width: 100%;
     max-width: 390px;
     min-height: 400px;
-    background-color: #6ed3e0;
+    background-color: #000000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -24,6 +30,7 @@
     overflow: hidden;
     border-radius: 10px;
     transition: 0.5s;
+    color: white;
 }
 
 .card-image{
@@ -38,19 +45,8 @@
   font-size: 20px;
 }
 
-.button-search{
-  display: inline-block;
-    padding: 15px 30px;
-    background-color: #0b515a;
-    border-radius: 25px;
-    font-size: 15px;
-    text-transform: uppercase;
-    font-weight: 500;
-    transition: 0.5s;
-    color: white;
-    text-decoration: none;
-}
+
 
 .button-search:hover{
-  background-color: #008a9c;
+  background-color: #005a23;
 }
