@@ -45,8 +45,19 @@
   font-size: 20px;
 }
 
-
+.button-search{
+  display: inline-block;
+    padding: 15px 30px;
+    background-color: #075a1c;
+    border-radius: 25px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: 0.5s;
+    color: white;
+    text-decoration: none;
+}
 
 .button-search:hover{
-  background-color: #005a23;
+  background-color: #008a9c;
 }
