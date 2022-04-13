@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { useDocumentTitle } from '../lib/customHooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../slice/authSlice';
+import Grid from '@mui/material/Grid';
 
 export default function Home() {
   const [tracks, setTracks] = useState([]);
@@ -103,17 +104,19 @@ export default function Home() {
               )}
 
               <div className="cards">
-                {tracks.map((track) => (
-                  <Track
-                    key={track.id}
-                    url_image={track.album.images[0].url}
-                    title={track.name}
-                    artist={track.artists[0].name}
-                    select={selectedTracksUri.includes(track.uri)}
-                    toggleSelect={() => toggleSelect(track)}
-                  />
+                <Grid container>
+                  {tracks.map((track) => (
+                    <Track
+                      key={track.id}
+                      url_image={track.album.images[0].url}
+                      title={track.name}
+                      artist={track.artists[0].name}
+                      select={selectedTracksUri.includes(track.uri)}
+                      toggleSelect={() => toggleSelect(track)}
+                    />
 
-                ))}
+                  ))}
+                </Grid>
               </div>
             </div>
           </main>
