@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../slice/authSlice';
+import { logout } from '../../slice/authSlice.ts';
 
 export default function Navbar() {
     const dispatch = useDispatch();

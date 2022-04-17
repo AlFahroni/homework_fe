@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import config from '../lib/config';
 import { useDocumentTitle } from '../lib/customHooks';
 import { getUserProfile } from '../lib/fetchApi';
-import { login } from '../slice/authSlice';
+import { login } from '../slice/authSlice.ts';
 
 export default function Auth() {
   const dispatch = useDispatch();
