@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { Provider } from 'react-redux';
-import store from './store';
+import store from './store.ts';
 // import * as React from 'react'
 // import { ChakraProvider } from '@chakra-ui/react'
 

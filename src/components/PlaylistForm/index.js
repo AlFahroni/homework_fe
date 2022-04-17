@@ -4,7 +4,7 @@ import { addTracksToPlaylist, createPlaylist } from '../../lib/fetchApi';
 import Input from '../Input';
 import InputGroup from '../InputGroup';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../slice/authSlice';
+import { logout } from '../../slice/authSlice.ts';
 import './index.css';
 
 export default function CreatePlaylistForm({ uriTracks }) {
