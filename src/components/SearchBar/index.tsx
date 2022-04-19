@@ -61,18 +61,19 @@ return (
   <div>
     <form className="form-search" onSubmit={handleSubmit}>
       <Input
-        type="text"
+        // type="text"
         placeholder="Search..."
-        className="form-search__input"
+        // className="form-search__input"
         required
         value={text}
         onChange={handleInput}
+        data-testid="search-input"
       />
       <button className='button-search' type="submit">Search</button>
     </form>
 
     {!isClear && (
-      <button className='button-search' onClick={handleClear}>Clear search</button>
+      <button className='button-search' onClick={handleClear}  data-testid="search-button">Clear search</button>
     )}
   </div>
 )
