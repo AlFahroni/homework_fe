@@ -35,7 +35,7 @@ export default function Auth() {
 
       setUserProfile();
     }
-  }, []);
+  }, [dispatch, history]) ;
 
   const getSpotifyLinkAuthorize = () => {
     const state = Date.now().toString();
